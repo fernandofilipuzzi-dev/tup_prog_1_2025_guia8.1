@@ -1,122 +1,72 @@
 ﻿
+using Ejercicio2.Models;
+
 namespace Ejercicio2
 {
     internal class Program
     {
-        #region variables globales
-        static int variables = 0;
-        static int acumulador;
-        static int contador;
-        static int maximo, minimo;
-        #endregion
+        static Servicio servicio = new Servicio();
 
         #region metodos 
         static int MostrarPantallaSolicitarOpcionMenu()
         {
             Console.Clear();
             Console.WriteLine("Ingrese las siguiente opciones:\n\n");
-            Console.WriteLine("1- Solicitar un solo número");
-            Console.WriteLine("2- Solicitar varios números.");
-            Console.WriteLine("3- Mostrar máximo y mínimo.");
-            Console.WriteLine("4- Mostrar promedio");
-            Console.WriteLine("Otro- Salir");
+            Console.WriteLine("1- Iniciar Monto a repartir");
+            Console.WriteLine("2- Solicitar Edad Por niña");
+            Console.WriteLine("3- Mostrar monto y porcentajes de las niñas");            
+            Console.WriteLine("(otro)- Salir.");
             int op = Convert.ToInt32(Console.ReadLine());
             return op;
         }
-        static void MostrarPantallaIniciarVariables()
-        {
-            contador = 0;
-            maximo = 0;
-            minimo = 0;
-            acumulador = 0;
-        }
-        static void MostrarPantallaSolicitarNumero()
+
+        static void MostrarPantallaSolicitarMontoARepartir()
         {
             Console.Clear();
-            Console.WriteLine("Ingrese un número ");
-            int valor = Convert.ToInt32(Console.ReadLine());
-            acumulador += valor;
-            contador++;
+            Console.WriteLine("Monto a repartir: \n\n");
 
-            if (contador==1 || valor > maximo)
-            { 
-                maximo = valor;
-            }
+            double montoARepartir=Convert.ToDouble(Console.ReadLine());
 
-            if (contador == 1 || valor < minimo)
-            {
-                minimo = valor;
-            }
-        }
-        static void MostrarPantallaSolicitarVariosNumeros()
-        {
-            Console.Clear();
-            Console.WriteLine("Ingrese  cuantos números va a ingresar");
-            int cantidad = Convert.ToInt32(Console.ReadLine());
+            servicio.RegistrarMontoARepartir(montoARepartir);
 
-            for (int n = 0; n < cantidad; n++)
-            {
-                MostrarPantallaSolicitarNumero();
-            }
-        }
-        static void MostrarPantallaMaximo()
-        {
-            Console.Clear();
-            Console.WriteLine("Mostrar máximo: "+ maximo);
-
-            Console.WriteLine("Presione una tecla para volver al menú principal");
-            Console.ReadKey();            
-        }
-        static void MostrarPantallaMinimo()
-        {
-            Console.Clear();
-            Console.WriteLine("Mostrar mímimo: " + minimo);
-
-            Console.WriteLine("Presione una tecla para volver al menú principal");
+            Console.WriteLine("\n\n\nPresione una tecla para continuar");
             Console.ReadKey();
         }
-        static void MostrarPantallaCalcularYMostrarPromedio()
+
+        static void MostrarPantallaSolicitarEdadesNiñas()
         {
             Console.Clear();
+            Console.WriteLine("Edades de las niñas:\n\n");
 
-            Console.WriteLine("Pantalla de promedio\n\n");
-
-            if (contador > 0)
+            for (int nro = 0; nro < 4; nro++)
             {
-                double promedio = acumulador / contador;
-                Console.WriteLine("Promedio: " + promedio);
+                Console.WriteLine("Entre la edad de la niña número: "+(nro+1)+"\n");
+                int edad = Convert.ToInt32(Console.ReadLine());
+                servicio.RegistrarEdad(edad, nro);
             }
-            else
-            {
-                Console.WriteLine("Promedio: No se han ingresado números");
-            }
-
-            Console.WriteLine("Presione una tecla para volver al menú principal");
-            Console.ReadKey();
         }
-        static void MostrarPantallaCantidad()
+       
+        static void MostrarPantallaCalcularMostrarMontoYPorcentajePorNiña()
         {
             Console.Clear();
+            Console.WriteLine("Reparto de dinero: \n\n");
 
-            Console.WriteLine("Pantalla de cantidad de valores procesados\n\n");
+            servicio.CalcularMontosYPorcentajesARepartir();
 
-            if (contador > 0)
-            {
-                Console.WriteLine("Cantidad: " + contador);
-            }
-            else
-            {
-                Console.WriteLine("Cantidad: No se han ingresado números");
-            }
+            Console.WriteLine($"Niña 1 ({servicio.Edad0}), Porcentaje: {servicio.Porcentaje0:f2}, Monto: ${servicio.Monto0:f2}");
+            Console.WriteLine($"Niña 2 ({servicio.Edad1}), Porcentaje: {servicio.Porcentaje1:f2}, Monto: ${servicio.Monto1:f2}");
+            Console.WriteLine($"Niña 3 ({servicio.Edad2}), Porcentaje: {servicio.Porcentaje2:f2}, Monto: ${servicio.Monto2:f2}");
+            Console.WriteLine($"Niña 4 ({servicio.Edad3}), Porcentaje: {servicio.Porcentaje3:f2}, Monto: ${servicio.Monto3:f2}");
 
-            Console.WriteLine("Presione una tecla para volver al menú principal");
+            Console.WriteLine("\n\n\nPresione una tecla para volver al menú principal");
             Console.ReadKey();
         }
+        
         #endregion
 
         static void Main(string[] args)
         {
-            MostrarPantallaIniciarVariables();
+            MostrarPantallaSolicitarMontoARepartir();
 
             int op = MostrarPantallaSolicitarOpcionMenu();
 
@@ -127,23 +77,13 @@ namespace Ejercicio2
                 switch (op)
                 {
                     case 1:
-                        MostrarPantallaSolicitarNumero();
+                        MostrarPantallaSolicitarMontoARepartir();
                         break;
                     case 2:
-                        MostrarPantallaSolicitarVariosNumeros();
+                        MostrarPantallaSolicitarEdadesNiñas();                        
                         break;
                     case 3:
-                        MostrarPantallaMaximo();
-                        MostrarPantallaMinimo();
-                        break;
-                    case 4:
-                        MostrarPantallaCalcularYMostrarPromedio();
-                        break;
-                    case 5:
-                        MostrarPantallaCantidad();
-                        break;
-                    case 6:
-                        MostrarPantallaIniciarVariables();
+                        MostrarPantallaCalcularMostrarMontoYPorcentajePorNiña();                        
                         break;
                     default:
                         op = -1;
@@ -152,7 +92,7 @@ namespace Ejercicio2
                 #endregion
 
                 #region solicitar opción
-                if (op!=-1)
+                if (op != -1)
                     op = MostrarPantallaSolicitarOpcionMenu();
                 #endregion
             }
