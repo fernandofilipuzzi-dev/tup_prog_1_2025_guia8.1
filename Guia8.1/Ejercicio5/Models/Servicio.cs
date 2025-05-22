@@ -28,11 +28,11 @@ namespace Ejercicio5.Models
                         #region verifico si el año es bisiesto
                         if (DeterminarSiEsBisiesto(año))
                         {
-                            dias = 28;
+                            dias = 29;
                         }
                         else
                         {
-                            dias = 29;
+                            dias = 28;
                         }
                         #endregion
                     }
@@ -72,7 +72,7 @@ namespace Ejercicio5.Models
             if (año % 4 == 0)
             {
                 #region verificar que no sea multiplo de 100 o verifico que sea multiplo de 400
-                if (año % 100 != 0 || año % 400 != 0)
+                if (año % 100 != 0 || año % 400 == 0)
                 {
                     esBisiesto = true;
                 }
