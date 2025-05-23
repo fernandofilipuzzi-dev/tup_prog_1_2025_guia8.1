@@ -1,5 +1,5 @@
 ﻿
-namespace Ejercicio7.Models
+namespace Ejercicio6.Models
 {
     internal class Servicio
     {

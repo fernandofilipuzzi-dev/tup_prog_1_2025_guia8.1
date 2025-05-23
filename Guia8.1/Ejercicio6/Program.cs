@@ -1,5 +1,5 @@
 ﻿
-using Ejercicio7.Models;
+using Ejercicio6.Models;
 
 namespace Ejercicio6
 {
